@@ -7,13 +7,14 @@ import { Plus, RotateCcw, Droplet } from 'lucide-react'
 import { useApp } from '../lib/store'
 import { CYCLE } from '../lib/data'
 import { SoundButton, Tappable } from '../components/ui'
+import { Icon, type IconName } from '../lib/icons'
 import { playSound } from '../lib/sound'
 import { haptic } from '../lib/haptics'
 
-const QUICK = [
-  { ml: 250, label: 'Glass', emoji: '🥛' },
-  { ml: 500, label: 'Bottle', emoji: '🍶' },
-  { ml: 750, label: 'Flask', emoji: '🧴' },
+const QUICK: { ml: number; label: string; icon: IconName }[] = [
+  { ml: 250, label: 'Glass', icon: 'cup' },
+  { ml: 500, label: 'Bottle', icon: 'cup-straw' },
+  { ml: 750, label: 'Flask', icon: 'droplet-half' },
 ]
 
 export default function Hydrate() {
@@ -35,7 +36,7 @@ export default function Hydrate() {
         <div style={{ paddingTop: 4, marginBottom: 16 }}>
           <span className="eyebrow">Hydration</span>
           <h1 className="display" style={{ fontSize: 30, marginTop: 6 }}>
-            Drink up, gorgeous 💧
+            Drink up, gorgeous <Icon name="droplet" size={24} className="inline-ic" color="#5fb6f5" />
           </h1>
         </div>
 
@@ -93,7 +94,13 @@ export default function Hydrate() {
               <motion.i animate={{ width: `${pct * 100}%` }} transition={{ type: 'spring', stiffness: 90, damping: 18 }} />
             </div>
             <div className="faint" style={{ fontSize: 12.5, marginTop: 8 }}>
-              {pct >= 1 ? '🎉 Goal smashed!' : `${Math.round(goal - state.waterMl)} ml to go`}
+              {pct >= 1 ? (
+                <>
+                  <Icon name="trophy" size={12} className="inline-ic" color="#5fb6f5" /> Goal smashed!
+                </>
+              ) : (
+                `${Math.round(goal - state.waterMl)} ml to go`
+              )}
             </div>
           </div>
         </div>
@@ -110,7 +117,7 @@ export default function Hydrate() {
               className="card"
               style={{ flex: 1, padding: '16px 10px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
             >
-              <div style={{ fontSize: 28 }}>{q.emoji}</div>
+              <Icon name={q.icon} size={28} color="#5fb6f5" />
               <div style={{ fontWeight: 800, fontSize: 14 }}>+{q.ml}ml</div>
               <div className="faint" style={{ fontSize: 11.5 }}>{q.label}</div>
             </Tappable>
@@ -159,7 +166,7 @@ export default function Hydrate() {
                   background: on ? `linear-gradient(135deg, ${c.color}26, rgba(255,255,255,0.6))` : 'var(--card)',
                 }}
               >
-                <span style={{ fontSize: 22 }}>{c.emoji}</span>
+                <Icon name={c.icon} size={22} color={c.color} />
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 13.5 }}>{c.label}</div>
                   <div className="faint" style={{ fontSize: 11.5 }}>{c.water} L goal</div>

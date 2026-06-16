@@ -8,6 +8,7 @@ import { Volume2, VolumeX, ChevronRight, Sparkles, RefreshCw, Bell, Lock } from 
 import { useApp } from '../lib/store'
 import { FOOD_INSPO, BOOK_WISHLIST } from '../lib/data'
 import { Tappable, SoundButton } from '../components/ui'
+import { Icon } from '../lib/icons'
 import { isSoundEnabled, setSoundEnabled, playSound } from '../lib/sound'
 import { haptic } from '../lib/haptics'
 
@@ -33,11 +34,12 @@ export default function Profile() {
             className="avatar"
             style={{ width: 92, height: 92, fontSize: 38, margin: '0 auto 12px', background: 'var(--accent-grad)', boxShadow: 'var(--shadow-glow)' }}
           >
-            {state.name?.[0]?.toUpperCase() ?? '🌸'}
+            {state.name ? state.name[0].toUpperCase() : <Icon name="flower1" size={38} color="#fff" />}
           </div>
           <h1 className="display" style={{ fontSize: 28 }}>{state.name}</h1>
           <div className="pill" style={{ marginTop: 8 }}>
-            {challenge?.emoji} {challenge?.name ?? 'No challenge yet'} · Day {state.currentDay}
+            {challenge && <Icon name={challenge.icon} size={13} className="inline-ic" color="var(--accent)" />}
+            {challenge?.name ?? 'No challenge yet'} · Day {state.currentDay}
           </div>
         </motion.div>
 
@@ -63,29 +65,33 @@ export default function Profile() {
 
         {/* food inspo */}
         <div className="row between" style={{ margin: '24px 4px 12px' }}>
-          <h2 style={{ fontSize: 17, fontWeight: 800 }}>Food inspo 🥗</h2>
+          <h2 style={{ fontSize: 17, fontWeight: 800 }}>
+            Food inspo <Icon name="basket" size={16} className="inline-ic" color="var(--blush-500)" />
+          </h2>
           <span className="faint" style={{ fontSize: 12.5, fontWeight: 700 }}>Curate</span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
-          {FOOD_INSPO.map((emoji, i) => (
+          {FOOD_INSPO.map((icon, i) => (
             <Tappable
               key={i}
               sound="tap"
               className="card"
-              style={{ aspectRatio: '1', display: 'grid', placeItems: 'center', fontSize: 34, background: `linear-gradient(135deg, ${['#ffe3ee','#eee3ff','#e3f5ee'][i % 3]}, rgba(255,255,255,0.6))` }}
+              style={{ aspectRatio: '1', display: 'grid', placeItems: 'center', background: `linear-gradient(135deg, ${['#ffe3ee','#eee3ff','#e3f5ee'][i % 3]}, rgba(255,255,255,0.6))` }}
             >
-              {emoji}
+              <Icon name={icon} size={32} color={['#e85f97', '#8a6fe0', '#5cc99a'][i % 3]} />
             </Tappable>
           ))}
         </div>
 
         {/* book wishlist */}
-        <h2 style={{ fontSize: 17, fontWeight: 800, margin: '24px 4px 12px' }}>Books wishlist 📚</h2>
+        <h2 style={{ fontSize: 17, fontWeight: 800, margin: '24px 4px 12px' }}>
+          Books wishlist <Icon name="book" size={16} className="inline-ic" color="var(--blush-500)" />
+        </h2>
         <div className="stack">
           {BOOK_WISHLIST.map((b, i) => (
             <Tappable key={i} sound="tap" className="card" style={{ padding: 13, display: 'flex', alignItems: 'center', gap: 13 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, display: 'grid', placeItems: 'center', fontSize: 22, background: 'rgba(255,255,255,0.8)' }}>
-                {b.emoji}
+              <div style={{ width: 44, height: 44, borderRadius: 12, display: 'grid', placeItems: 'center', background: 'rgba(255,255,255,0.8)' }}>
+                <Icon name={b.icon} size={22} color="var(--blush-500)" />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: 14.5 }}>{b.title}</div>
@@ -137,7 +143,8 @@ export default function Profile() {
         </SoundButton>
 
         <p className="faint" style={{ textAlign: 'center', fontSize: 12, marginTop: 18 }}>
-          Her 75 · Made with 💗 for women
+          Her 75 · Made with{' '}
+          <Icon name="heart-fill" size={11} className="inline-ic" color="var(--accent)" /> for women
         </p>
       </div>
     </div>

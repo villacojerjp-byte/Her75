@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { Heart, Flame, UserPlus, MessageCircle } from 'lucide-react'
 import { FRIENDS, FEED } from '../lib/data'
 import { Tappable, SoundButton } from '../components/ui'
+import { Icon } from '../lib/icons'
 import { playSound } from '../lib/sound'
 import { haptic } from '../lib/haptics'
 
@@ -97,7 +98,8 @@ export default function Friends() {
               )
             })}
             <p className="faint" style={{ textAlign: 'center', fontSize: 12.5, marginTop: 8 }}>
-              You can see their promises in real time. 💞
+              You can see their promises in real time.{' '}
+              <Icon name="heart-fill" size={12} className="inline-ic" color="var(--accent)" />
             </p>
           </div>
         ) : (

@@ -7,22 +7,23 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { SoundButton } from '../components/ui'
 import { useApp } from '../lib/store'
 import { playSound } from '../lib/sound'
+import { Icon, type IconName } from '../lib/icons'
 
-const SLIDES = [
+const SLIDES: { icon: IconName; title: string; body: string; art: string }[] = [
   {
-    emoji: '🌸',
+    icon: 'flower1',
     title: 'Her 75',
     body: 'A 75-day wellness journey, built for women. Soft on the soul, strong on results.',
     art: 'linear-gradient(135deg,#ffd9e7,#f7b6cf)',
   },
   {
-    emoji: '🌙',
+    icon: 'moon-stars',
     title: 'Cycle-aware',
     body: 'Your habits adapt to where you are in your cycle — not the other way around.',
     art: 'linear-gradient(135deg,#e9e2fb,#c3a9f2)',
   },
   {
-    emoji: '💞',
+    icon: 'heart',
     title: 'Better together',
     body: 'See your friends’ daily promises in real time. No streaks-as-shame. Just support.',
     art: 'linear-gradient(135deg,#cdeede,#a5e0c6)',
@@ -58,12 +59,11 @@ export default function Onboarding() {
                   background: slide.art,
                   display: 'grid',
                   placeItems: 'center',
-                  fontSize: 92,
                   boxShadow: '0 30px 70px -20px rgba(150,60,110,0.4)',
                   marginBottom: 40,
                 }}
               >
-                {slide.emoji}
+                <Icon name={slide.icon} size={88} color="#ffffff" />
               </motion.div>
               <h1 className="display" style={{ fontSize: 42, marginBottom: 14, textAlign: 'center' }}>
                 {slide.title}

@@ -8,6 +8,7 @@ import { Check, ArrowRight, Sparkles } from 'lucide-react'
 import { CHALLENGES } from '../lib/data'
 import { useApp } from '../lib/store'
 import { SoundButton, Tappable } from '../components/ui'
+import { Icon } from '../lib/icons'
 import { playSound } from '../lib/sound'
 import { haptic } from '../lib/haptics'
 
@@ -92,10 +93,9 @@ export default function ChallengeSelect() {
                         background: c.gradient,
                         display: 'grid',
                         placeItems: 'center',
-                        fontSize: 40,
                       }}
                     >
-                      {c.emoji}
+                      <Icon name={c.icon} size={38} color="#ffffff" />
                     </div>
                     <div style={{ flex: 1, padding: '15px 16px' }}>
                       <div className="row between" style={{ alignItems: 'flex-start' }}>
@@ -112,11 +112,9 @@ export default function ChallengeSelect() {
                       <p className="muted" style={{ fontSize: 13.5, marginTop: 7, lineHeight: 1.4 }}>
                         {c.tagline}
                       </p>
-                      <div className="row gap-2 wrap" style={{ marginTop: 10 }}>
+                      <div className="row gap-3 wrap" style={{ marginTop: 11, alignItems: 'center' }}>
                         {c.tasks.slice(0, 4).map((t) => (
-                          <span key={t.id} style={{ fontSize: 17 }}>
-                            {t.emoji}
-                          </span>
+                          <Icon key={t.id} name={t.icon} size={17} color="var(--text-faint)" />
                         ))}
                         <span className="pill" style={{ padding: '4px 10px', fontSize: 10.5, textTransform: 'capitalize' }}>
                           {c.intensity}

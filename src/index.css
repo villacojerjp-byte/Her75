@@ -580,6 +580,20 @@ textarea {
   display: none;
 }
 
+/* inline icon inside a line of text */
+.inline-ic {
+  vertical-align: -0.14em;
+  margin: 0 2px;
+}
+
+/* themed icon tile (replaces emoji squares) */
+.task-emoji svg {
+  color: var(--blush-500);
+}
+.task.done .task-emoji svg {
+  color: #5cc99a;
+}
+
 /* confetti dot */
 .confetti-dot {
   position: absolute;

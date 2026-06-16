@@ -9,6 +9,7 @@ import { Check, Flame, ChevronRight } from 'lucide-react'
 import { useApp } from '../lib/store'
 import { CYCLE } from '../lib/data'
 import { ProgressRing, IconButton } from '../components/ui'
+import { Icon } from '../lib/icons'
 import Confetti from '../components/Confetti'
 import { playSound } from '../lib/sound'
 import { haptic } from '../lib/haptics'
@@ -55,7 +56,7 @@ export default function Today({ goHydrate }: { goHydrate: () => void }) {
               {greeting},
             </div>
             <h1 className="display" style={{ fontSize: 28 }}>
-              {state.name} {challenge.emoji}
+              {state.name} <Icon name={challenge.icon} size={22} className="inline-ic" color="var(--accent)" />
             </h1>
           </div>
           <div className="pill" style={{ background: 'var(--accent-grad)', color: '#fff', border: 'none', boxShadow: 'var(--shadow-glow)' }}>
@@ -91,7 +92,13 @@ export default function Today({ goHydrate }: { goHydrate: () => void }) {
               {done}/{total} promises kept
             </div>
             <div className="muted" style={{ fontSize: 13.5, marginTop: 2 }}>
-              {allDone ? '🎉 You did it all today — proud of you!' : `${Math.round(progress * 100)}% · keep going, you've got this`}
+              {allDone ? (
+                <>
+                  <Icon name="trophy" size={13} className="inline-ic" color="var(--accent)" /> You did it all today — proud of you!
+                </>
+              ) : (
+                `${Math.round(progress * 100)}% · keep going, you've got this`
+              )}
             </div>
           </div>
         </motion.div>
@@ -104,8 +111,8 @@ export default function Today({ goHydrate }: { goHydrate: () => void }) {
           className="card"
           style={{ marginTop: 14, padding: '13px 15px', display: 'flex', alignItems: 'center', gap: 12, background: `linear-gradient(135deg, ${cycle.color}22, rgba(255,255,255,0.6))` }}
         >
-          <div style={{ width: 42, height: 42, borderRadius: 13, display: 'grid', placeItems: 'center', fontSize: 21, background: `${cycle.color}30` }}>
-            {cycle.emoji}
+          <div style={{ width: 42, height: 42, borderRadius: 13, display: 'grid', placeItems: 'center', background: `${cycle.color}30` }}>
+            <Icon name={cycle.icon} size={21} color={cycle.color} />
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 800, fontSize: 13.5 }}>
@@ -145,7 +152,9 @@ export default function Today({ goHydrate }: { goHydrate: () => void }) {
                   }}
                   role="button"
                 >
-                  <div className="task-emoji">{task.emoji}</div>
+                  <div className="task-emoji">
+                    <Icon name={task.icon} size={22} />
+                  </div>
                   <div className="task-body">
                     <div className="task-title">{task.title}</div>
                     <div className="task-sub">{task.sub}</div>
@@ -183,7 +192,8 @@ export default function Today({ goHydrate }: { goHydrate: () => void }) {
         <p className="faint" style={{ textAlign: 'center', fontSize: 12.5, marginTop: 22, lineHeight: 1.5 }}>
           Five small promises. No streaks-as-shame, no judgment.
           <br />
-          The challenge adapts to you. 💗
+          The challenge adapts to you.{' '}
+          <Icon name="heart-fill" size={12} className="inline-ic" color="var(--accent)" />
         </p>
       </div>
     </div>
